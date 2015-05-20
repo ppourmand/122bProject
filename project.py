@@ -5,6 +5,8 @@
 # Miguel Sanchez
 
 import cmath
+import numpy as np
+from scipy import linalg
 
 def naive(poly1, poly2):
   """
@@ -40,6 +42,7 @@ def fft(poly1, poly2):
 	
 	#determine omega
 	w = 360/dim
+	w = cmath.rect(1,w/180 * cmath.pi)	
 
 	#Create matrix M
 	M = []
@@ -50,11 +53,15 @@ def fft(poly1, poly2):
 		M.append(row)
 
 	#determine M inverse
+	M = np.array(M)
+	invM = linalg.inv(M)
 
 	#Create matrix V			
-	
-	#Multiply M inverse by V to find C
-	
+		
+
+	#C =  1/dim * M inverse * V
+		
+
 	#return C
 
 def main():
