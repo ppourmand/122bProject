@@ -57,7 +57,7 @@ def fft(poly1, poly2):
 	invM = linalg.inv(M)
 
 	#Create vector V			
-	V = np.matrix([[238],[576],[1210],[2236]])
+	V = np.matrix([[12],[9-j],[-2],[9+i]])
 	C =  invM * V
 		
 	print(C)
