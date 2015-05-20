@@ -53,15 +53,14 @@ def fft(poly1, poly2):
 		M.append(row)
 
 	#determine M inverse
-	M = np.array(M)
+	M = np.matrix(M)
 	invM = linalg.inv(M)
 
-	print(invM)
-	#Create matrix V			
+	#Create vector V			
+	V = np.matrix([[238],[576],[1210],[2236]])
+	C =  invM * V
 		
-
-	#C =  1/dim * M inverse * V
-		
+	print(C)
 
 	#return C
 
