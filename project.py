@@ -4,6 +4,8 @@
 # Pasha Pourmand
 # Miguel Sanchez
 
+import cmath
+
 def naive(poly1, poly2):
   """
   This function multiplies two polynomials of different (or same)
@@ -23,7 +25,7 @@ def isPowerOf2(num):
         return num != 0 and ((num & (num - 1)) == 0)
 
 def fft(poly1, poly2):
-	#create matrix M
+	#determine dimension of matrix M
 	deg1 = len(poly1) - 1
 	deg2 = len(poly2) - 1
 
@@ -34,10 +36,26 @@ def fft(poly1, poly2):
 			break
 		else:
 			dim = dim + 1
-	print("Dimension of Matrix M is: ", dim)	
+	#print("Dimension of Matrix M is: ", dim)
 	
+	#determine omega
+	w = 360/dim
+
+	#Create matrix M
+	M = []
+	for i in range(dim):
+		row = []
+		for j in range(dim):
+			row.append(pow(w,i*j))
+		M.append(row)
+
+	#determine M inverse
+
+	#Create matrix V			
 	
+	#Multiply M inverse by V to find C
 	
+	#return C
 
 def main():
 
