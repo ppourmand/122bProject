@@ -18,7 +18,26 @@ def naive(poly1, poly2):
 
   return result
 
-#def fft():
+#determine if a number is a power of 2
+def isPowerOf2(num):
+        return num != 0 and ((num & (num - 1)) == 0)
+
+def fft(poly1, poly2):
+	#create matrix M
+	len1 = len(poly1)
+	len2 = len(poly2)
+
+	#Find dimension that is greater than len1 + len2 and is a power of 2
+	dim = len1 + len2
+	while(True):
+		if(isPowerOf2(dim) == 1):
+			break
+		else:
+			dim = dim + 1
+	
+	
+	
+	
 
 def main():
 
