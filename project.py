@@ -24,17 +24,17 @@ def isPowerOf2(num):
 
 def fft(poly1, poly2):
 	#create matrix M
-	len1 = len(poly1)
-	len2 = len(poly2)
+	deg1 = len(poly1) - 1
+	deg2 = len(poly2) - 1
 
-	#Find dimension that is greater than len1 + len2 and is a power of 2
-	dim = len1 + len2
+	#Find dimension that is greater than deg1 + deg2 and is a power of 2
+	dim = deg1 + deg2 + 1
 	while(True):
 		if(isPowerOf2(dim) == 1):
 			break
 		else:
 			dim = dim + 1
-	
+	print("Dimension of Matrix M is: ", dim)	
 	
 	
 	
@@ -47,6 +47,7 @@ def main():
   ans = naive(polynomial_one,polynomial_two)
 
   print(ans)
+  fft(polynomial_one, polynomial_two)
 
 if __name__ == '__main__':
   main()
