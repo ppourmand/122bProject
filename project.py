@@ -40,22 +40,23 @@ def fft(poly1, poly2):
 			dim = dim + 1
 	#print("Dimension of Matrix M is: ", dim)
 	
-	#determine omega
-	w = 360/dim
-	w = cmath.rect(1,w/180 * cmath.pi)	
+	#determine omega in radians
+	w = 360.0/dim
+	w = w/180 * cmath.pi
 
 	#Create matrix M
 	M = []
 	for i in range(dim):
 		row = []
 		for j in range(dim):
-			row.append(pow(w,i*j))
+			row.append(cmath.rect(1,i*j*w))
 		M.append(row)
 
 	#determine M inverse
 	M = np.array(M)
 	invM = linalg.inv(M)
 
+	print(invM)
 	#Create matrix V			
 		
 
