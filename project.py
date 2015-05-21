@@ -56,13 +56,39 @@ def fft(poly1, poly2):
 	M = np.matrix(M)
 	invM = linalg.inv(M)
 
-	#Create vector V			
-	V = np.matrix([[12],[9-j],[-2],[9+i]])
-	C =  invM * V
-		
-	print(C)
+	#Create vector V
+	poly1_arr = []
+	for i in range(1,dim+1):
+		omega = i*w
+		sum = 0
+		for j in range(0, len(poly1)):
+			sum = sum + poly1[j]*cmath.rect(1,j*omega)
+		poly1_arr.append(sum)		
 
-	#return C
+        poly2_arr = []
+        for i in range(1,dim+1):
+                omega = i*w
+		sum = 0
+                for j in range(0, len(poly2)):
+                        sum = sum + poly2[j]*cmath.rect(1,j*omega)
+		poly2_arr.append(sum)		
+	
+	V = []
+	for i in range(dim-1, -1, -1):
+		V.append([poly1_arr[i]*poly2_arr[i]])	
+	
+	V = np.matrix(V)
+
+	C =  invM * V
+	C = np.squeeze(np.asarray(C))
+	
+	temp = []
+	temp.append(C[0].real)
+	for i in range(dim-1, 0, -1):
+		temp.append(C[i].real)
+	C = temp
+
+	return C
 
 def main():
 
@@ -72,7 +98,10 @@ def main():
   ans = naive(polynomial_one,polynomial_two)
 
   print(ans)
-  fft(polynomial_one, polynomial_two)
+
+  ans2 = fft(polynomial_one, polynomial_two)
+
+  print(ans2)
 
 if __name__ == '__main__':
   main()
