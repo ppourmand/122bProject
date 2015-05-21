@@ -86,7 +86,7 @@ def fft(poly1, poly2):
 	temp.append(C[0].real)
 	for i in range(dim-1, 0, -1):
 		temp.append(C[i].real)
-	C = temp
+	C = temp[:(len(poly1)+len(poly2)-1)]
 
 	return C
 
