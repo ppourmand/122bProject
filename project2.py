@@ -57,7 +57,6 @@ def fft(poly1, poly2):
 	#determine M inverse
 	M = np.matrix(M)
 	conjM = M.conjugate()
-	invM = linalg.inv(M)
 
 	#Create vector V
 	poly1_arr = []
@@ -80,8 +79,7 @@ def fft(poly1, poly2):
 	
 	V = np.matrix(V)
 
-	C =  conjM * V
-	C = np.squeeze(np.asarray(C))
+	C = np.squeeze(np.asarray(conjM*V))
 	
 	temp = []
 	temp.append(C[0].real)
