@@ -61,21 +61,19 @@ def fft(poly1, poly2):
 
 	#Create vector V
 	poly1_arr = []
+	poly2_arr = []
 	for i in range(1,dim+1):
 		omega = i*w
 		sum = 0
 		for j in range(0, len(poly1)):
 			sum = sum + poly1[j]*cmath.rect(1,j*omega)
-		poly1_arr.append(sum)		
-
-        poly2_arr = []
-        for i in range(1,dim+1):
-                omega = i*w
+		poly1_arr.append(sum)
+		
 		sum = 0
-                for j in range(0, len(poly2)):
-                        sum = sum + poly2[j]*cmath.rect(1,j*omega)
+		for j in range(0, len(poly2)):
+			sum = sum + poly2[j]*cmath.rect(1,j*omega)
 		poly2_arr.append(sum)		
-	
+
 	V = []
 	for i in range(dim-1, -1, -1):
 		V.append([poly1_arr[i]*poly2_arr[i]])	
