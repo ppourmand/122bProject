@@ -58,7 +58,7 @@ def naive(poly1, poly2):
 				len2 = len(lst2)
 
                 sum = []
-		print(lst1,lst2)
+		#print(lst1,lst2)
                 for k in range(0, len2):
                         sum.append(lst1[k] + lst2[k])
                 lst1 = sum
@@ -131,24 +131,22 @@ def generate_poly(degree):
 def main():
 
     # polynomials represented as coefficients
-    #polynomial_one = generate_poly(500)
-    #polynomial_two = generate_poly(500)
+    polynomial_one = generate_poly(500)
+    polynomial_two = generate_poly(500)
 
-    polynomial_one = [4,3,10,16,12,13]
-    polynomial_two = [4,10,13,15,18,0,12]
+    py_one = polynomial_one
+    py_two = polynomial_two
 
-    #print "poly 1:", polynomial_one
-    #print "poly 2:", polynomial_two
     start = time.time()
     ans = naive(polynomial_one,polynomial_two)
     print("Time for naive: %s seconds" % (time.time() - start))
+    #print "ans1: ", ans
 
-    print "ans1: ", ans
     start = time.time()
-    ans2 = fft([0,0,4,3,10,16,12,13], [4,10,13,15,18,0,12])
-    #ans2 = fft(polynomial_one, polynomial_two)
+    #ans2 = fft([0,0,4,3,10,16,12,13], [4,10,13,15,18,0,12])
+    ans2 = fft(py_one, py_two)
     print("Time for FFT: %s seconds" % (time.time() - start))
-    print "ans2: ", ans2
+    #print "ans2: ", ans2
 
 if __name__ == '__main__':
     main()
