@@ -4,6 +4,7 @@
 # Pasha Pourmand
 # Miguel Sanchez
 
+import math
 import cmath
 import time
 import numpy as np
@@ -24,10 +25,6 @@ def naive(poly1, poly2):
 
   return result
 
-#determine if a number is a power of 2
-def isPowerOf2(num):
-        return num != 0 and ((num & (num - 1)) == 0)
-
 def fft(poly1, poly2):
 	#determine dimension of matrix M
 	deg1 = len(poly1) - 1
@@ -35,12 +32,8 @@ def fft(poly1, poly2):
 
 	#Find dimension that is greater than deg1 + deg2 and is a power of 2
 	dim = deg1 + deg2 + 1
-	while(True):
-		if(isPowerOf2(dim) == 1):
-			break
-		else:
-			dim = dim + 1
-	#print("Dimension of Matrix M is: ", dim)
+	dim = int(pow(2, math.ceil(math.log(dim,2))))
+	print("Dimension of Matrix M is: ", dim)
 	
 	#determine omega in radians
 	w = 360.0/dim
@@ -78,12 +71,12 @@ def fft(poly1, poly2):
 		V.append([poly1_arr[i]*poly2_arr[i]])	
 	
 	V = np.matrix(V)
-
-	C = np.squeeze(np.asarray(conjM*V))
 	
+	C = np.squeeze(np.asarray(conjM*V))
+
 	temp = []
 	temp.append(C[0].real)
-	for i in range(dim-1, 0, -1):
+	for i in range(dim - 1, 0, -1):
 		temp.append(C[i].real/dim)
 	C = temp[:(len(poly1)+len(poly2)-1)]
 
