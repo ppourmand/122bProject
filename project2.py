@@ -85,37 +85,41 @@ def fft(poly1, poly2):
 
     #determine M inverse
     M = np.matrix(M)
-    conjM = M.conjugate()
+    invM = linalg.inv(M)
 
     #Create vector V
     poly1_arr = []
-    poly2_arr = []
-    len1 = len(poly1)
-    len2 = len(poly2)
     for i in range(1,dim+1):
         omega = i*w
         sum = 0
-        for j in range(0, len1):
+        for j in range(0, len(poly1)):
             sum = sum + poly1[j]*cmath.rect(1,j*omega)
-        poly1_arr.append(sum)
-        
+        poly1_arr.append(sum)       
+
+    poly2_arr = []
+    for i in range(1,dim+1):
+        omega = i*w
         sum = 0
-        for j in range(0, len2):
+        for j in range(0, len(poly2)):
             sum = sum + poly2[j]*cmath.rect(1,j*omega)
         poly2_arr.append(sum)       
-
+    
+    #Determine V
     V = []
     for i in range(dim-1, -1, -1):
         V.append([poly1_arr[i]*poly2_arr[i]])   
     
     V = np.matrix(V)
-    
-    C = np.squeeze(np.asarray(conjM*V))
 
+    #Find the Coefficients of polynomial
+    C =  invM * V
+    C = np.squeeze(np.asarray(C))
+
+    #Get relevant terms and store in C    
     temp = []
     temp.append(C[0].real)
-    for i in range(dim - 1, 0, -1):
-        temp.append(C[i].real/dim)
+    for i in range(dim-1, 0, -1):
+        temp.append(C[i].real)
     C = temp[:(len(poly1)+len(poly2)-1)]
 
     return C
@@ -134,6 +138,9 @@ def main():
     polynomial_one = generate_poly(500)
     polynomial_two = generate_poly(500)
 
+    #polynomial_one = [1,2,3]
+    #polynomial_two = [2,3,4]
+
     py_one = polynomial_one
     py_two = polynomial_two
 
@@ -142,11 +149,15 @@ def main():
     print("Time for naive: %s seconds" % (time.time() - start))
     #print "ans1: ", ans
 
-    start = time.time()
     #ans2 = fft([0,0,4,3,10,16,12,13], [4,10,13,15,18,0,12])
+    start = time.time()
     ans2 = fft(py_one, py_two)
     print("Time for FFT: %s seconds" % (time.time() - start))
+    ans2 = [int(round(elem, 0)) for elem in ans2]
     #print "ans2: ", ans2
+
+    if(ans == ans2):
+	print("True")
 
 if __name__ == '__main__':
     main()
